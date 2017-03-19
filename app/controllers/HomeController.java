@@ -1,5 +1,7 @@
 package controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.GraphQL;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
@@ -7,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 
+import java.io.IOException;
 
 import static graphql.Scalars.GraphQLString;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
@@ -25,7 +28,7 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() {
+    public Result index() throws IOException {
         GraphQLObjectType queryType = newObject()
                 .name("helloWorldQuery")
                 .field(newFieldDefinition()
@@ -42,8 +45,13 @@ public class HomeController extends Controller {
         GraphQL graphQL = new GraphQL(schema);
 
         Object result = graphQL.execute("{hello}").getData();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+
         System.out.println(result);
-        return ok(result.toString());
+        String json = mapper.writeValueAsString(result);
+        return ok(mapper.readTree(json));
     }
 
 }
