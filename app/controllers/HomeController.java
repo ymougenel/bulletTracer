@@ -1,6 +1,17 @@
 package controllers;
 
-import play.mvc.*;
+import graphql.GraphQL;
+import graphql.schema.GraphQLObjectType;
+import graphql.schema.GraphQLSchema;
+import play.mvc.Controller;
+import play.mvc.Result;
+
+
+
+import static graphql.Scalars.GraphQLString;
+import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
+import static graphql.schema.GraphQLObjectType.newObject;
+
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -15,7 +26,24 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
-        return ok(views.html.index.render());
+        GraphQLObjectType queryType = newObject()
+                .name("helloWorldQuery")
+                .field(newFieldDefinition()
+                        .type(GraphQLString)
+                        .name("hello")
+                        .staticValue("world")
+                        .build())
+                .build();
+
+        GraphQLSchema schema = GraphQLSchema.newSchema()
+                .query(queryType)
+                .build();
+
+        GraphQL graphQL = new GraphQL(schema);
+
+        Object result = graphQL.execute("{hello}").getData();
+        System.out.println(result);
+        return ok(result.toString());
     }
 
 }
