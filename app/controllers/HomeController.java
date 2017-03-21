@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.GraphQL;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
+import models.Consultant;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -54,4 +55,9 @@ public class HomeController extends Controller {
         return ok(mapper.readTree(json));
     }
 
+    public Result showConsultant() throws Exception {
+      ObjectMapper mapper = new ObjectMapper();
+      String json = mapper.writeValueAsString(new Consultant());
+        return ok(mapper.readTree(json));
+    }
 }
