@@ -1,6 +1,5 @@
 package controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.GraphQL;
 import graphql.schema.GraphQLObjectType;
@@ -58,6 +57,15 @@ public class HomeController extends Controller {
     public Result showConsultant() throws Exception {
       ObjectMapper mapper = new ObjectMapper();
       String json = mapper.writeValueAsString(new Consultant());
+        return ok(mapper.readTree(json));
+    }
+
+    public Result addConsultant() throws Exception {
+        Consultant created = new Consultant();
+        created.save();
+        System.out.println(created.id);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(created);
         return ok(mapper.readTree(json));
     }
 }

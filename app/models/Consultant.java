@@ -1,11 +1,18 @@
 package models;
 
-/**
- * Created by yann on 21/03/17.
- */
-public class Consultant {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import com.avaje.ebean.Model;
+
+@Entity
+public class Consultant extends Model {
+  @Id
+  @GeneratedValue
+  public Long id;
+
   public String nom = "Bobby";
   public String prenom = "Fischer";
-  public long id = 1L;
+  public int promo;
 
 }
