@@ -1,14 +1,17 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import daos.ConsultantDAO;
 import graphql.GraphQL;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
 import models.Consultant;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 
+import javax.inject.Inject;
 import java.io.IOException;
 
 import static graphql.Scalars.GraphQLString;
@@ -21,6 +24,10 @@ import static graphql.schema.GraphQLObjectType.newObject;
  * to the application's home page.
  */
 public class HomeController extends Controller {
+
+    @Inject
+    private ConsultantDAO consultantDAO;
+
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -54,16 +61,15 @@ public class HomeController extends Controller {
         return ok(mapper.readTree(json));
     }
 
-    public Result showConsultant() throws Exception {
+    public Result showConsultant(Long id) throws Exception {
       ObjectMapper mapper = new ObjectMapper();
-      String json = mapper.writeValueAsString(new Consultant());
+      String json = mapper.writeValueAsString(consultantDAO.find(id));
         return ok(mapper.readTree(json));
     }
 
     public Result addConsultant() throws Exception {
         Consultant created = new Consultant();
-        created.save();
-        System.out.println(created.id);
+        consultantDAO.save(created);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(created);
         return ok(mapper.readTree(json));
