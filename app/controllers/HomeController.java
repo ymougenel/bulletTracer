@@ -1,12 +1,11 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import daos.ConsultantDAO;
+import daos.ClientService;
 import graphql.GraphQL;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
-import models.Consultant;
-import play.Logger;
+import models.Client;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -26,7 +25,7 @@ import static graphql.schema.GraphQLObjectType.newObject;
 public class HomeController extends Controller {
 
     @Inject
-    private ConsultantDAO consultantDAO;
+    private ClientService clientService;
 
 
     /**
@@ -61,17 +60,25 @@ public class HomeController extends Controller {
         return ok(mapper.readTree(json));
     }
 
-    public Result showConsultant(Long id) throws Exception {
+    public Result showClient(Long id) throws Exception {
       ObjectMapper mapper = new ObjectMapper();
-      String json = mapper.writeValueAsString(consultantDAO.find(id));
+      String json = mapper.writeValueAsString(clientService.find(id));
         return ok(mapper.readTree(json));
     }
 
-    public Result addConsultant() throws Exception {
-        Consultant created = new Consultant();
-        consultantDAO.save(created);
+  //TODO remove once GraphtQL is set
+    public Result addClient2() throws Exception {
+        Client created = new Client();
+        clientService.save(created);
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(created);
         return ok(mapper.readTree(json));
+    }
+
+    public Result addClient(Client client) throws Exception  {
+      clientService.save(client);
+      ObjectMapper mapper = new ObjectMapper();
+      String json = mapper.writeValueAsString(client);
+      return ok(mapper.readTree(json));
     }
 }

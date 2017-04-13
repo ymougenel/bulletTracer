@@ -13,11 +13,17 @@ public class GenericDAO<T extends GenericModel> {
     return entity;
   }
 
+  public <S extends T> S find(Long id, Class<S> clazz) {
+    return Ebean.find(clazz, id);
+  }
+
+  public <S extends T> void update(S entity) {
+    Ebean.update(entity);
+  }
+
   public <S extends T> boolean delete(S entity) {
     return Ebean.delete(entity);
   }
 
-  public <S extends T> S find(Long id, Class<S> clazz) {
-    return Ebean.find(clazz, id);
-  }
+
 }
