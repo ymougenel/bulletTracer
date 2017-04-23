@@ -11,7 +11,7 @@ import javax.inject.Inject;
 public class ClientService implements ClientServiceI {
 
   @Inject
-  private daos.ClientService ClientDAO;
+  private daos.ClientDAO ClientDAO;
 
   @Override
   public Client find(Long id) {
