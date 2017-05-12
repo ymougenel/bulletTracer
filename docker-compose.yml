@@ -1,0 +1,28 @@
+version: '2'
+
+networks:
+  landscape-network:
+    driver: bridge
+
+services:
+
+  landscape-postgres:
+    #image
+    container_name: landscape-postgres
+    build: conf/postgres
+    networks:
+      - landscape-network
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: 'MF'
+
+  landscape-back:
+    container_name: landscape-back
+    build: .
+    networks:
+      - landscape-network
+    ports:
+      - 9000:9000
+    depends_on:
+      - landscape-postgres
