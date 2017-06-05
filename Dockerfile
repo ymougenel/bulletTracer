@@ -5,13 +5,10 @@ FROM java:latest
 
 FROM java:latest
 
-ENV appName buletracer
-ENV appVersion 1.0-SNAPSHOT
-ENV appWithVersion ${appName}-${appVersion}
+ADD target/universal/buletracer-1.0-SNAPSHOT.tgz /
+#ADD chill_out_for_db.sh ./
 
-ADD target/universal/${appWithVersion}.tgz /
-RUN chown 1000:1000 /${appWithVersion}/bin/${appName}
-RUN chmod +x /${appWithVersion}/bin/${appName}
-
-WORKDIR /${appWithVersion}/bin
-CMD ./${appName} # "-Dplay.evolutions.db.default.autoApply=true"
+#CMD ./chill_out_for_db.sh
+ADD ./wait-for-postgres.sh /buletracer-1.0-SNAPSHOT/bin/wait-for-postgres.sh
+WORKDIR /buletracer-1.0-SNAPSHOT/bin
+#CMD ./buletracer

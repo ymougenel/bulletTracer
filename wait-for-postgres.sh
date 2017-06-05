@@ -2,7 +2,6 @@
 # wait-for-postgres.sh
 
 set -e
-
 host="$1"
 shift
 cmd="$@"
@@ -11,7 +10,7 @@ cmd="$@"
  # >&2 echo "Postgres is unavailable - sleeping"
   #sleep 1
 #done
-
+#TODO wait for db, instead of a magic sleep value (cf doc)
 sleep 15
 
 >&2 echo "Postgres is up - executing command"

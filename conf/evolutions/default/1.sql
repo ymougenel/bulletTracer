@@ -25,9 +25,9 @@ create sequence consultant_seq;
 create table mission (
   id                            bigint not null,
   start                         date,
-  end                           date,
+  den                           date,
   effective_start               date,
-  effective_end                 date,
+  effective_den                 date,
   project_id                    bigint,
   consultant_id                 bigint,
   constraint pk_mission primary key (id)
@@ -43,7 +43,7 @@ create table mission_techno (
 create table project (
   id                            bigint not null,
   start                         date,
-  end                           date,
+  den                           date,
   description                   varchar(255),
   client_id                     bigint,
   constraint pk_project primary key (id)

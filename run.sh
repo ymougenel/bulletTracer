@@ -1,4 +1,5 @@
  #!/usr/bin/env bash
 
-sbt universal:packageZipTarball
+#TODO uncomment following line once the version is stable
+#sbt universal:packageZipTarball
 docker-compose up --build

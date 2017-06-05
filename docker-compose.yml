@@ -15,6 +15,8 @@ services:
     ports:
       - 5432:5432
     environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_DB: 'postgres'
       POSTGRES_PASSWORD: 'MF'
 
   landscape-back:
@@ -24,5 +26,4 @@ services:
       - landscape-network
     ports:
       - 9000:9000
-    depends_on:
-      - landscape-postgres
+    command: ["./wait-for-postgres.sh", "postgre:5432", "./buletracer"]

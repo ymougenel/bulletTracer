@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -16,10 +17,12 @@ public class Mission extends GenericModel {
   /* When the mission is supposed to start */
   public LocalDate start;
   /* When the mission is supposed to end */
-  public LocalDate end;
+  @Column(name="DEN")
+  public LocalDate den;
   /* When the mission  really starts */
   public LocalDate effectiveStart;
   /* When the mission really ends */
+  @Column(name="EFFECTIVE_DEN")
   public LocalDate effectiveEnd;
 
   @ManyToOne
