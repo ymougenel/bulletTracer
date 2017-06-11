@@ -6,7 +6,9 @@
 GET     /                           controllers.HomeController.index
 GET     /show/:id                        controllers.HomeController.showClient(id : Long)
 GET     /add                          controllers.HomeController.addClient2()
+GET     /consultants                          controllers.HomeController.getConsultants()
 POST     /add                          controllers.HomeController.addClient2()
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

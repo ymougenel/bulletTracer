@@ -6,12 +6,16 @@ import graphql.GraphQL;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
 import models.Client;
+import models.Consultant;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.ConsultantServiceI;
+import services.impl.ConsultantService;
 
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.List;
 
 import static graphql.Scalars.GraphQLString;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
@@ -27,6 +31,8 @@ public class HomeController extends Controller {
     @Inject
     private ClientDAO clientDAO;
 
+    @Inject
+    private ConsultantService consultantService;
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -81,4 +87,10 @@ public class HomeController extends Controller {
       String json = mapper.writeValueAsString(client);
       return ok(mapper.readTree(json));
     }
+
+  public Result getConsultants() throws Exception  {
+    ObjectMapper mapper = new ObjectMapper();
+    String json = mapper.writeValueAsString(consultantService.find(1L));
+    return ok(mapper.readTree(json));
+  }
 }
