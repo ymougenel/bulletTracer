@@ -1,11 +1,10 @@
-- &Yann !!models.Consultant
-    nom:       Mougenel
-    prenom:   Yann
-    promo: 42
-
-- &ebizz !!models.Client
-    nom:       ebusiness
-    adresses:  bagneux
-    email: ebizz@gmail.com
-    tel: 00000
-
+---
+consultant:
+  - !!models.Consultant
+      nom: Mougenel
+      prenom: Yann
+      promo: 42
+  - !!models.Consultant
+      nom: Tom
+      prenom: Fann
+      promo: 43

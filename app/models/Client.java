@@ -11,4 +11,6 @@ public class Client extends GenericModel{
   public String adresses;
   public String email;
   public int tel;
+
+  public Client() {}
 }

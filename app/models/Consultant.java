@@ -10,4 +10,5 @@ public class Consultant extends GenericModel {
   public String prenom = "Fischer";
   public int promo;
 
+  public Consultant() {};
 }
